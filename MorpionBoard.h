@@ -3,6 +3,7 @@
 #include <vector>
 #include "MorpionBoard.h"
 #include "RotationSymetrie.h"
+#include <array>
 
 class CMorpionBoard {
     
@@ -17,6 +18,26 @@ public:
     bool isEmpty(size_t x, size_t y) const;
     CMorpionCase getWinner() const;
 
+    //Constructeur a partir d'un tableau de 9 cases
+    CMorpionBoard(std::array<CMorpionCase,9>param)
+    {
+        _board.resize(3);
+        for (int i = 0; i < 3; i++)
+        {
+            _board[i].resize(3);
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                this->setCase(i, j, param[(i * 3) + j]);
+            }
+        }
+    }
+
+    //Fonction qui retourne le board symetrique seulement pour un board de 3x3
+    CMorpionBoard GetBoardSymetrie();
+
     //Fonction valable pour un board 3x3 uniquement retourne le meme board mais avec une rot de 90 deg a droite
     CMorpionBoard GetBoard90DgrDroite();
 
@@ -28,5 +49,4 @@ public:
     
     //Comparaison stupide case par case
     bool isSameBoardDumb(CMorpionBoard toCompare);
-    
 };

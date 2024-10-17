@@ -67,7 +67,16 @@ CMorpionBoard CMorpionBoard::GetBoard90DgrDroite()
 CMorpionBoard CMorpionBoard::GetBoardSymetrie()
 {
     CMorpionBoard otherBoard = { sizeOfMap, sizeOfMap };
-    return CMorpionBoard();
+    otherBoard.setCase(0, 0, this->getCase(0, 2));
+    otherBoard.setCase(0, 1, this->getCase(0, 1));
+    otherBoard.setCase(0, 2, this->getCase(0, 0));
+    otherBoard.setCase(1, 0, this->getCase(1, 2));
+    otherBoard.setCase(1, 1, this->getCase(1, 1));
+    otherBoard.setCase(1, 2, this->getCase(1, 0));
+    otherBoard.setCase(2, 0, this->getCase(2, 2));
+    otherBoard.setCase(2, 1, this->getCase(2, 1));
+    otherBoard.setCase(2, 2, this->getCase(2, 0));
+    return otherBoard;
 }
 
 CRotationSymetrie CMorpionBoard::isSameBoardVeryClever(CMorpionBoard toCompare)
@@ -78,7 +87,15 @@ CRotationSymetrie CMorpionBoard::isSameBoardVeryClever(CMorpionBoard toCompare)
     }
     else
     {
-
+        CMorpionBoard toCompareApresSymetrie = toCompare.GetBoardSymetrie();
+        if (this -> isSameBoardClever(toCompareApresSymetrie) != -1)
+        {
+            return { true,this->isSameBoardClever(toCompareApresSymetrie),true };
+        }
+        else
+        {
+            return { false, 0, false };
+        }
     }
 }
 
@@ -118,7 +135,7 @@ int CMorpionBoard::isSameBoardClever(CMorpionBoard toCompare)
                 }
                 else
                 {
-                    //On a tout essay� mais il ne sont d�finitivement pas identiques
+                    //On a tout essaye mais il ne sont dfinitivement pas identiques
                     return -1;
                 }
             }
